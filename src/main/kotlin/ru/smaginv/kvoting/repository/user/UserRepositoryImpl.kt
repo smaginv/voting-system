@@ -29,7 +29,7 @@ class UserRepositoryImpl(
         return userRepository.save(user)
     }
 
-    override fun delete(userId: Long): Int {
-        return userRepository.delete(userId)
+    override fun delete(userId: Long) {
+        checkNotFound(userRepository.delete(userId), userId)
     }
 }

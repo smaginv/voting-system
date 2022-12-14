@@ -11,5 +11,5 @@ interface DishRepository {
 
     fun save(dish: Dish): Dish
 
-    fun delete(restaurantId: Long, dishId: Long): Int
+    fun delete(restaurantId: Long, dishId: Long)
 }

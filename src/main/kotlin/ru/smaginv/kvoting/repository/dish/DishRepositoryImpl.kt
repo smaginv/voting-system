@@ -22,7 +22,7 @@ class DishRepositoryImpl(
         return dishRepository.save(dish)
     }
 
-    override fun delete(restaurantId: Long, dishId: Long): Int {
-        return dishRepository.delete(restaurantId, dishId)
+    override fun delete(restaurantId: Long, dishId: Long) {
+        checkNotFound(dishRepository.delete(restaurantId, dishId), dishId)
     }
 }

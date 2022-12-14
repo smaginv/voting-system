@@ -11,20 +11,25 @@ import java.time.LocalTime
 class VoteRepositoryImpl(
     @Autowired val voteRepository: VoteRepositoryJpa
 ) : VoteRepository {
-    override fun get(userId: Long, voteId: Long): Vote {
-        return checkNotFound(voteRepository.get(userId, voteId), voteId)
+    override fun get(voteId: Long): Vote {
+        return checkNotFound(voteRepository.get(voteId), voteId)
+    }
+
+    override fun getByUserOnDate(userId: Long, date: LocalDate): Vote {
+        val vote = voteRepository.getByUserOnDate(userId, date.atStartOfDay(), date.atTime(LocalTime.MAX))
+        return checkNotFound(vote, date)
     }
 
     override fun getAllOnDate(date: LocalDate): List<Vote> {
-        return voteRepository.getAllOnDate(date.atTime(LocalTime.MAX), date.atStartOfDay())
+        return voteRepository.getAllOnDate(date.atStartOfDay(), date.atTime(LocalTime.MAX))
     }
 
     override fun save(vote: Vote): Vote {
         return voteRepository.save(vote)
     }
 
-    override fun delete(userId: Long, voteId: Long): Int {
-        return voteRepository.delete(userId, voteId)
+    override fun delete(voteId: Long) {
+        checkNotFound(voteRepository.delete(voteId), voteId)
     }
 }
 

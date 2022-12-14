@@ -10,7 +10,7 @@ import jakarta.validation.constraints.Size
 @JsonPropertyOrder("id", "email", "username", "role")
 class UserDto(
     @JsonIgnoreProperties(allowGetters = true)
-    var id: Long,
+    var id: Long?,
     @NotBlank
     @Email
     @Size(max = 128)

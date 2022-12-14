@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
 
-@JsonPropertyOrder("id, title")
+@JsonPropertyOrder("id", "title")
 @JsonIgnoreProperties(value = ["id"], allowGetters = true)
 class RestaurantDto(
     var id: Long?,

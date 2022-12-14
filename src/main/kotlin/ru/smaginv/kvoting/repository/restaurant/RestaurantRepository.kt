@@ -6,9 +6,11 @@ interface RestaurantRepository {
 
     fun get(restaurantId: Long): Restaurant
 
+    fun getReferenceById(restaurantId: Long): Restaurant
+
     fun getAll(): List<Restaurant>
 
     fun save(restaurant: Restaurant): Restaurant
 
-    fun delete(restaurantId: Long): Int
+    fun delete(restaurantId: Long)
 }

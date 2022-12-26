@@ -1,6 +1,5 @@
 package ru.smaginv.kvoting.service.restaurant
 
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import ru.smaginv.kvoting.entity.Restaurant
@@ -14,9 +13,9 @@ import java.time.LocalDate
 @Service
 @Transactional(readOnly = true)
 class RestaurantServiceImpl(
-    @Autowired val restaurantRepository: RestaurantRepository,
-    @Autowired val restaurantMapper: RestaurantMapper,
-    @Autowired val dishService: DishService
+    val restaurantRepository: RestaurantRepository,
+    val restaurantMapper: RestaurantMapper,
+    val dishService: DishService
 ) : RestaurantService {
 
     override fun get(restaurantId: Long): RestaurantDto {

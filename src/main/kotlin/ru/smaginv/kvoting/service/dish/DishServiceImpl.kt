@@ -1,6 +1,5 @@
 package ru.smaginv.kvoting.service.dish
 
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import ru.smaginv.kvoting.entity.Dish
@@ -13,9 +12,9 @@ import java.time.LocalDate
 @Service
 @Transactional(readOnly = true)
 class DishServiceImpl(
-    @Autowired val dishRepository: DishRepository,
-    @Autowired val restaurantRepository: RestaurantRepository,
-    @Autowired val dishMapper: DishMapper
+    val dishRepository: DishRepository,
+    val restaurantRepository: RestaurantRepository,
+    val dishMapper: DishMapper
 ) : DishService {
 
     override fun get(restaurantId: Long, dishId: Long): DishDto {

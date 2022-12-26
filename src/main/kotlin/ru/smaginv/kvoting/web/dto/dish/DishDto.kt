@@ -9,12 +9,16 @@ import java.time.LocalDate
 @JsonIgnoreProperties(value = ["id"], allowGetters = true)
 class DishDto(
     var id: Long?,
-    @NotBlank
-    @Size(min = 2, max = 128)
-    var title: String,
-    @NotNull
-    @Positive
-    var price: Int,
-    @PastOrPresent
-    var date: LocalDate
-)
+    @field:NotBlank
+    @field:Size(min = 2, max = 128)
+    var title: String?,
+    @field:NotNull
+    @field:Positive
+    var price: Int?,
+    @field:PastOrPresent
+    var date: LocalDate?
+) {
+    override fun toString(): String {
+        return "DishDto(id=$id, title='$title', price=$price, date=$date)"
+    }
+}

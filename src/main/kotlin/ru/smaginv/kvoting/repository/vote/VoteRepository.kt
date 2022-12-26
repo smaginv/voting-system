@@ -5,13 +5,15 @@ import java.time.LocalDate
 
 interface VoteRepository {
 
-    fun get(voteId: Long): Vote
+    fun get(userId: Long, voteId: Long): Vote
 
-    fun getByUserOnDate(userId: Long, date: LocalDate): Vote
+    fun getByUserOnDate(userId: Long, date: LocalDate): Vote?
+
+    fun getAllByUser(userId: Long): List<Vote>
 
     fun getAllOnDate(date: LocalDate): List<Vote>
 
     fun save(vote: Vote): Vote
 
-    fun delete(voteId: Long)
+    fun delete(userId: Long, voteId: Long)
 }

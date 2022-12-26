@@ -1,6 +1,8 @@
 package ru.smaginv.kvoting.entity
 
 import jakarta.persistence.*
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 
 @Entity
 @Table(name = "users")
@@ -27,5 +29,8 @@ class User(
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "roles", joinColumns = [JoinColumn(name = "user_id")])
-    var roles: MutableSet<Role>
+    @JoinColumn(name = "user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @Column(name = "role")
+    var roles: MutableSet<Role>?
 )

@@ -12,7 +12,7 @@ interface DishRepositoryJpa : JpaRepository<Dish, Long> {
     @Query("SELECT d FROM Dish d WHERE d.restaurant.id = :restaurantId AND d.id = :dishId")
     fun get(@Param("restaurantId") restaurantId: Long, @Param("dishId") dishId: Long): Dish?
 
-    @Query("SELECT d FROM Dish d WHERE d.restaurant.id = :restaurantId AND d.date = :date")
+    @Query("SELECT d FROM Dish d WHERE d.restaurant.id = :restaurantId AND d.date = :date ORDER BY d.id")
     fun getAllByRestaurantOnDate(
         @Param("restaurantId") restaurantId: Long,
         @Param("date") date: LocalDate

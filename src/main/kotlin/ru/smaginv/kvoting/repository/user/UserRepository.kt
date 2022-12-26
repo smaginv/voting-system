@@ -6,6 +6,8 @@ interface UserRepository {
 
     fun get(userId: Long): User
 
+    fun getReferenceById(userId: Long): User
+
     fun getByUsername(username: String): User
 
     fun getByEmail(email: String): User

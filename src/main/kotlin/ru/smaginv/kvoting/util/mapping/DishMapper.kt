@@ -9,6 +9,7 @@ import ru.smaginv.kvoting.web.dto.dish.DishDto
 @Mapper(componentModel = "spring")
 interface DishMapper {
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "restaurant", ignore = true)
     fun map(dishDto: DishDto): Dish
 
@@ -16,6 +17,7 @@ interface DishMapper {
 
     fun mapDtos(dishes: List<Dish>): List<DishDto>
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "restaurant", ignore = true)
     fun update(dishDto: DishDto, @MappingTarget dish: Dish)
 }

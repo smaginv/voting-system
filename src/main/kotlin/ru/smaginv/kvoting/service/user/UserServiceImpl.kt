@@ -1,8 +1,8 @@
 package ru.smaginv.kvoting.service.user
 
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import ru.smaginv.kvoting.entity.Role
 import ru.smaginv.kvoting.entity.User
 import ru.smaginv.kvoting.repository.user.UserRepository
 import ru.smaginv.kvoting.util.mapping.UserMapper
@@ -11,8 +11,8 @@ import ru.smaginv.kvoting.web.dto.user.UserDto
 @Service
 @Transactional(readOnly = true)
 class UserServiceImpl(
-    @Autowired val userRepository: UserRepository,
-    @Autowired val userMapper: UserMapper
+    val userRepository: UserRepository,
+    val userMapper: UserMapper
 ) : UserService {
 
     override fun get(userId: Long): UserDto {
@@ -41,6 +41,7 @@ class UserServiceImpl(
     @Transactional
     override fun create(userDto: UserDto): UserDto {
         val user = userMapper.map(userDto)
+        user.roles = mutableSetOf(Role.USER)
         return userMapper.mapDto(userRepository.save(user))
     }
 

@@ -9,7 +9,11 @@ import jakarta.validation.constraints.Size
 @JsonIgnoreProperties(value = ["id"], allowGetters = true)
 class RestaurantDto(
     var id: Long?,
-    @NotBlank
-    @Size(min = 2, max = 256)
-    var title: String
-)
+    @field:NotBlank
+    @field:Size(min = 2, max = 256)
+    var title: String?
+) {
+    override fun toString(): String {
+        return "RestaurantDto(id=$id, title='$title')"
+    }
+}

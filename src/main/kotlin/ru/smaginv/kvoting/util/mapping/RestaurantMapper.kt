@@ -21,5 +21,6 @@ interface RestaurantMapper {
 
     fun mapDtos(restaurants: List<Restaurant>): List<RestaurantDto>
 
+    @Mapping(target = "id", ignore = true)
     fun update(restaurantDto: RestaurantDto, @MappingTarget restaurant: Restaurant)
 }

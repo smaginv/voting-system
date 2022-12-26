@@ -9,9 +9,6 @@ DROP SEQUENCE IF EXISTS restaurant_seq;
 DROP SEQUENCE IF EXISTS dish_seq;
 DROP SEQUENCE IF EXISTS vote_seq;
 
-DROP TYPE IF EXISTS user_role;
-CREATE TYPE user_role AS ENUM ('ADMIN', 'USER');
-
 CREATE TABLE users
 (
     user_id  BIGINT PRIMARY KEY NOT NULL,
@@ -26,8 +23,8 @@ ALTER TABLE users
 
 CREATE TABLE roles
 (
-    user_id BIGINT    NOT NULL REFERENCES users (user_id) ON DELETE CASCADE,
-    role    user_role NOT NULL
+    user_id BIGINT  NOT NULL REFERENCES users (user_id) ON DELETE CASCADE,
+    role    VARCHAR NOT NULL
 );
 ALTER TABLE roles
     ADD CONSTRAINT user_role_unique UNIQUE (user_id, role);
@@ -62,7 +59,7 @@ CREATE TABLE votes
     vote_id       BIGINT PRIMARY KEY NOT NULL,
     user_id       BIGINT             NOT NULL REFERENCES users (user_id) ON DELETE CASCADE,
     restaurant_id BIGINT             NOT NULL REFERENCES restaurants (restaurant_id) ON DELETE CASCADE,
-    timestamp     TIMESTAMP          NOT NULL
+    date          DATE               NOT NULL
 );
 CREATE SEQUENCE vote_seq START 20 INCREMENT 10;
 ALTER SEQUENCE vote_seq OWNED BY votes.vote_id;

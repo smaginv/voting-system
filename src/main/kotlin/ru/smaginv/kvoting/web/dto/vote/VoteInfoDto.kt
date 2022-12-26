@@ -2,21 +2,17 @@ package ru.smaginv.kvoting.web.dto.vote
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonPropertyOrder
-import jakarta.validation.constraints.NotNull
-import jakarta.validation.constraints.PastOrPresent
 import ru.smaginv.kvoting.web.dto.restaurant.RestaurantDto
-import ru.smaginv.kvoting.web.dto.user.UserDto
-import java.time.LocalDateTime
+import java.time.LocalDate
 
-@JsonPropertyOrder("id", "time", "user", "restaurant")
-@JsonIgnoreProperties(value = ["id"], allowGetters = true)
+@JsonPropertyOrder("id", "date", "restaurant")
+@JsonIgnoreProperties(value = ["id", "date", "restaurant"], allowGetters = true)
 class VoteInfoDto(
-    var id: Long?,
-    @NotNull
-    @PastOrPresent
-    var time: LocalDateTime,
-    @NotNull
-    var restaurant: RestaurantDto,
-    @NotNull
-    var user: UserDto
-)
+    var id: Long,
+    var date: LocalDate,
+    var restaurant: RestaurantDto
+) {
+    override fun toString(): String {
+        return "VoteInfoDto(id=$id, date=$date, restaurant=$restaurant)"
+    }
+}

@@ -27,5 +27,5 @@ class Dish(
     var date: LocalDate,
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
-    var restaurant: Restaurant
+    var restaurant: Restaurant?
 )

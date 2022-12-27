@@ -7,7 +7,9 @@ interface VoteRepository {
 
     fun get(userId: Long, voteId: Long): Vote
 
-    fun getByUserOnDate(userId: Long, date: LocalDate): Vote?
+    fun getByUserToday(userId: Long): Vote?
+
+    fun getByUserOnDate(userId: Long, date: LocalDate): Vote
 
     fun getAllByUser(userId: Long): List<Vote>
 

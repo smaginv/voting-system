@@ -52,7 +52,7 @@ ALTER SEQUENCE dish_seq OWNED BY dishes.dish_id;
 ALTER TABLE dishes
     ALTER COLUMN dish_id SET DEFAULT nextval('dish_seq');
 ALTER TABLE dishes
-    ADD CONSTRAINT restaurant_dish_date UNIQUE (restaurant_id, title, date);
+    ADD CONSTRAINT restaurant_dish_date_unique UNIQUE (restaurant_id, title, date);
 
 CREATE TABLE votes
 (
@@ -65,3 +65,5 @@ CREATE SEQUENCE vote_seq START 20 INCREMENT 10;
 ALTER SEQUENCE vote_seq OWNED BY votes.vote_id;
 ALTER TABLE votes
     ALTER COLUMN vote_id SET DEFAULT nextval('vote_seq');
+ALTER TABLE votes
+    ADD CONSTRAINT user_date_unique UNIQUE (user_id, date)

@@ -13,8 +13,12 @@ class VoteRepositoryImpl(
         return checkNotFound(voteRepository.get(userId, voteId), voteId)
     }
 
-    override fun getByUserOnDate(userId: Long, date: LocalDate): Vote? {
-        return voteRepository.getByUserOnDate(userId, date)
+    override fun getByUserToday(userId: Long): Vote? {
+        return voteRepository.getByUserOnDate(userId, LocalDate.now())
+    }
+
+    override fun getByUserOnDate(userId: Long, date: LocalDate): Vote {
+        return checkNotFound(voteRepository.getByUserOnDate(userId, date), date)
     }
 
     override fun getAllByUser(userId: Long): List<Vote> {

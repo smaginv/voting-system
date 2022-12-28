@@ -3,6 +3,7 @@ package ru.smaginv.kvoting.web.dto.dish
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import jakarta.validation.constraints.*
+import java.io.Serializable
 import java.time.LocalDate
 
 @JsonPropertyOrder("id", "title", "price", "date")
@@ -17,7 +18,7 @@ class DishDto(
     var price: Int?,
     @field:PastOrPresent
     var date: LocalDate?
-) {
+) : Serializable {
     override fun toString(): String {
         return "DishDto(id=$id, title='$title', price=$price, date=$date)"
     }

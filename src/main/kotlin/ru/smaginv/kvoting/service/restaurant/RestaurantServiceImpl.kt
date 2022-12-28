@@ -1,5 +1,8 @@
 package ru.smaginv.kvoting.service.restaurant
 
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
+import org.springframework.cache.annotation.Caching
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import ru.smaginv.kvoting.entity.Restaurant
@@ -22,6 +25,10 @@ class RestaurantServiceImpl(
         return restaurantMapper.mapDto(getRestaurant(restaurantId))
     }
 
+    @Cacheable(
+        value = ["restaurant"],
+        key = "#restaurantId + '_today'"
+    )
     override fun getWithTodayMenu(restaurantId: Long): RestaurantInfoDto {
         val restaurantInfoDto = restaurantMapper.mapInfoDto(restaurantRepository.get(restaurantId))
         restaurantInfoDto.menu = dishService.getAllByRestaurantToday(restaurantId)
@@ -34,10 +41,20 @@ class RestaurantServiceImpl(
         return restaurantInfoDto
     }
 
+    @Cacheable(
+        value = ["restaurant"],
+        key = "'all'"
+    )
     override fun getAll(): List<RestaurantDto> {
         return restaurantMapper.mapDtos(restaurantRepository.getAll())
     }
 
+    @Caching(
+        evict = [
+            CacheEvict(value = ["restaurant"], key = "#restaurantId + '_today'"),
+            CacheEvict(value = ["restaurant"], key = "'all'")
+        ]
+    )
     @Transactional
     override fun update(restaurantId: Long, restaurantDto: RestaurantDto) {
         val updated = getRestaurant(restaurantId)
@@ -45,12 +62,23 @@ class RestaurantServiceImpl(
         restaurantRepository.save(updated)
     }
 
+    @Caching(
+        evict = [
+            CacheEvict(value = ["restaurant"], key = "'all'")
+        ]
+    )
     @Transactional
     override fun create(restaurantDto: RestaurantDto): RestaurantDto {
         val restaurant = restaurantMapper.map(restaurantDto)
         return restaurantMapper.mapDto(restaurantRepository.save(restaurant))
     }
 
+    @Caching(
+        evict = [
+            CacheEvict(value = ["restaurant"], key = "#restaurantId + '_today'"),
+            CacheEvict(value = ["restaurant"], key = "'all'")
+        ]
+    )
     @Transactional
     override fun delete(restaurantId: Long) {
         restaurantRepository.delete(restaurantId)

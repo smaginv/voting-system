@@ -1,5 +1,8 @@
 package ru.smaginv.kvoting.service.vote
 
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
+import org.springframework.cache.annotation.Caching
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import ru.smaginv.kvoting.entity.Vote
@@ -25,6 +28,10 @@ class VoteServiceImpl(
         return voteMapper.mapInfoDto(voteRepository.get(userId, voteId))
     }
 
+    @Cacheable(
+        value = ["vote"],
+        key = "#userId + '_today'"
+    )
     override fun getByUserToday(userId: Long): VoteInfoDto {
         val today = LocalDate.now()
         val vote = voteRepository.getByUserOnDate(userId, today)
@@ -40,6 +47,10 @@ class VoteServiceImpl(
         return voteMapper.mapInfoDtos(voteRepository.getAllByUser(userId))
     }
 
+    @Cacheable(
+        value = ["vote"],
+        key = "'all'"
+    )
     override fun getAllToday(): List<VoteInfoDto> {
         return voteMapper.mapInfoDtos(voteRepository.getAllOnDate(LocalDate.now()))
     }
@@ -48,6 +59,12 @@ class VoteServiceImpl(
         return voteMapper.mapInfoDtos(voteRepository.getAllOnDate(date))
     }
 
+    @Caching(
+        evict = [
+            CacheEvict(value = ["vote"], key = "#userId + '_today'"),
+            CacheEvict(value = ["vote"], key = "'all'")
+        ]
+    )
     @Transactional
     override fun update(userId: Long, restaurantId: Long) {
         votingUtil.checkVoteTime()
@@ -58,6 +75,12 @@ class VoteServiceImpl(
         voteRepository.save(vote)
     }
 
+    @Caching(
+        evict = [
+            CacheEvict(value = ["vote"], key = "#userId + '_today'"),
+            CacheEvict(value = ["vote"], key = "'all'")
+        ]
+    )
     @Transactional
     override fun create(userId: Long, restaurantId: Long): VoteInfoDto {
         votingUtil.checkVoteTime()
@@ -73,6 +96,12 @@ class VoteServiceImpl(
         return voteMapper.mapInfoDto(voteRepository.save(vote))
     }
 
+    @Caching(
+        evict = [
+            CacheEvict(value = ["vote"], key = "#userId + '_today'"),
+            CacheEvict(value = ["vote"], key = "'all'")
+        ]
+    )
     @Transactional
     override fun delete(userId: Long) {
         voteRepository.delete(userId)

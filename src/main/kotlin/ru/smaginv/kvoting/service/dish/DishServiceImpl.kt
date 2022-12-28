@@ -1,5 +1,7 @@
 package ru.smaginv.kvoting.service.dish
 
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Caching
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import ru.smaginv.kvoting.entity.Dish
@@ -29,6 +31,11 @@ class DishServiceImpl(
         return dishMapper.mapDtos(dishRepository.getAllByRestaurantOnDate(restaurantId, date))
     }
 
+    @Caching(
+        evict = [
+            CacheEvict(value = ["restaurant"], key = "#restaurantId + '_today'")
+        ]
+    )
     @Transactional
     override fun update(restaurantId: Long, dishId: Long, dishDto: DishDto) {
         val updated = getDish(restaurantId, dishId)
@@ -36,6 +43,11 @@ class DishServiceImpl(
         dishRepository.save(updated)
     }
 
+    @Caching(
+        evict = [
+            CacheEvict(value = ["restaurant"], key = "#restaurantId + '_today'")
+        ]
+    )
     @Transactional
     override fun create(restaurantId: Long, dishDto: DishDto): DishDto {
         val restaurant = restaurantRepository.getReferenceById(restaurantId)
@@ -44,6 +56,11 @@ class DishServiceImpl(
         return dishMapper.mapDto(dishRepository.save(dish))
     }
 
+    @Caching(
+        evict = [
+            CacheEvict(value = ["restaurant"], key = "#restaurantId + '_today'")
+        ]
+    )
     @Transactional
     override fun delete(restaurantId: Long, dishId: Long) {
         dishRepository.delete(restaurantId, dishId)

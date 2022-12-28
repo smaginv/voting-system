@@ -6,6 +6,7 @@ import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
+import ru.smaginv.kvoting.entity.Role
 import ru.smaginv.kvoting.service.user.UserService
 import ru.smaginv.kvoting.web.dto.user.UserDto
 
@@ -45,10 +46,10 @@ class AdminController(
     }
 
     @PatchMapping("/{userId}")
-    fun <T> update(@PathVariable userId: Long, @RequestBody @Valid userDto: UserDto): ResponseEntity<T> {
-        logger.info("update user: {} with id: {}", userDto, userId)
-        userService.update(userId, userDto)
-        return ResponseEntity.noContent().build()
+    fun setRole(@PathVariable userId: Long, @RequestParam role: Role): ResponseEntity<UserDto> {
+        logger.info("set user role: {} with id: {}", role, userId)
+        val user = userService.setRole(userId, role)
+        return ResponseEntity.ok(user)
     }
 
     @PostMapping

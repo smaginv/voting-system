@@ -9,6 +9,7 @@ import ru.smaginv.kvoting.web.dto.user.UserDto
 @Mapper(componentModel = "spring")
 interface UserMapper {
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "roles", ignore = true)
     fun map(userDto: UserDto): User
 
@@ -16,6 +17,7 @@ interface UserMapper {
 
     fun mapDtos(users: List<User>): List<UserDto>
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "roles", ignore = true)
     fun update(userDto: UserDto, @MappingTarget user: User)
 }

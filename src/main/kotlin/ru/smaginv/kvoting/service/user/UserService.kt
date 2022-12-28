@@ -1,5 +1,6 @@
 package ru.smaginv.kvoting.service.user
 
+import ru.smaginv.kvoting.entity.Role
 import ru.smaginv.kvoting.web.dto.user.UserDto
 
 interface UserService {
@@ -13,6 +14,8 @@ interface UserService {
     fun getAll(): List<UserDto>
 
     fun update(userId: Long, userDto: UserDto)
+
+    fun setRole(userId: Long, role: Role): UserDto
 
     fun create(userDto: UserDto): UserDto
 

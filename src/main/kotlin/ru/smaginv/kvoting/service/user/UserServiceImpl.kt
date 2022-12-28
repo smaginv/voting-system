@@ -33,9 +33,22 @@ class UserServiceImpl(
 
     @Transactional
     override fun update(userId: Long, userDto: UserDto) {
-        val updated = getUser(userId)
-        userMapper.update(userDto, updated)
-        userRepository.save(updated)
+        val user = getUser(userId)
+        userMapper.update(userDto, user)
+        userRepository.save(user)
+    }
+
+    @Transactional
+    override fun setRole(userId: Long, role: Role): UserDto {
+        val user = getUser(userId).apply {
+            roles?.let { roles ->
+                if (roles.contains(role))
+                    throw IllegalArgumentException("user already has a role: ${role.name}")
+                else
+                    roles.add(role)
+            }
+        }
+        return userMapper.mapDto(userRepository.save(user))
     }
 
     @Transactional

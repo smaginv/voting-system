@@ -49,10 +49,9 @@ class VoteServiceImpl(
     }
 
     @Transactional
-    override fun update(userId: Long, restaurantId: Long, voteId: Long) {
+    override fun update(userId: Long, restaurantId: Long) {
         votingUtil.checkVoteTime()
         val vote = voteRepository.getByUserOnDate(userId, LocalDate.now()).apply {
-            votingUtil.assureIdConsistent(id, voteId)
             votingUtil.checkReVoting(restaurantId, restaurant.id)
             restaurant = restaurantRepository.getReferenceById(restaurantId)
         }
@@ -75,7 +74,7 @@ class VoteServiceImpl(
     }
 
     @Transactional
-    override fun delete(userId: Long, voteId: Long) {
-        voteRepository.delete(userId, voteId)
+    override fun delete(userId: Long) {
+        voteRepository.delete(userId)
     }
 }

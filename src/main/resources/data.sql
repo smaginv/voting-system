@@ -1,6 +1,6 @@
 INSERT INTO users (user_id, email, username, password)
-VALUES (1, 'admin@mail.ru', 'admin', 'admin'),
-       (2, 'user@mail.ru', 'user', 'user');
+VALUES (1, 'admin@mail.ru', 'admin', '$2a$12$04A5Sm9Dzw2.s9qD2S1JTeX3jyytft5N7ep7OrZcp18qj2S2/jqb6'),
+       (2, 'user@mail.ru', 'user', '$2a$12$DXIrCvZIuwGE7TKw.GQ8aOjYNM0gSSMI8yfkzvtNw6EZyyPKOk/L.');
 
 INSERT INTO roles (user_id, role)
 VALUES (1, 'ADMIN'),

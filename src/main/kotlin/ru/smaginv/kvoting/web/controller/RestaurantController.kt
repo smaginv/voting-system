@@ -28,13 +28,13 @@ class RestaurantController(
         return ResponseEntity.ok(restaurantService.get(restaurantId))
     }
 
-    @GetMapping("/{restaurantId}/menu-today")
+    @GetMapping("/{restaurantId}/menu/today")
     fun getWithTodayMenu(@PathVariable restaurantId: Long): ResponseEntity<RestaurantInfoDto> {
         logger.info("get today's restaurant menu with ID: {}", restaurantId)
         return ResponseEntity.ok(restaurantService.getWithTodayMenu(restaurantId))
     }
 
-    @GetMapping("/{restaurantId}/menu-on-date")
+    @GetMapping("/{restaurantId}/menu/on-date")
     fun getWithOnDateMenu(
         @PathVariable restaurantId: Long,
         @RequestParam date: LocalDate

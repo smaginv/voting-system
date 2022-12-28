@@ -7,7 +7,7 @@ import ru.smaginv.kvoting.web.dto.dish.DishDto
 class RestaurantInfoDto(
     var id: Long,
     var title: String,
-    var menu: List<DishDto>
+    var menu: List<DishDto>?
 ) {
     override fun toString(): String {
         return "RestaurantInfoDto(id=$id, title='$title')"

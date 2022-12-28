@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 import ru.smaginv.kvoting.service.dish.DishService
 import ru.smaginv.kvoting.web.dto.dish.DishDto
-import java.time.LocalDate
 
 @RestController
 @RequestMapping(
@@ -25,21 +24,6 @@ class DishController(
     fun get(@PathVariable restaurantId: Long, @PathVariable dishId: Long): ResponseEntity<DishDto> {
         logger.info("get dish with id: {}", dishId)
         return ResponseEntity.ok(dishService.get(restaurantId, dishId))
-    }
-
-    @GetMapping("/menu/today")
-    fun getAllByRestaurantToday(@PathVariable restaurantId: Long): ResponseEntity<List<DishDto>> {
-        logger.info("get today's restaurant menu with id: {}", restaurantId)
-        return ResponseEntity.ok(dishService.getAllByRestaurantToday(restaurantId))
-    }
-
-    @GetMapping("/menu/on-date")
-    fun getAllByRestaurantOnDate(
-        @PathVariable restaurantId: Long,
-        @RequestParam date: LocalDate
-    ): ResponseEntity<List<DishDto>> {
-        logger.info("get the restaurant menu on the date {}, with id: {}", date, restaurantId)
-        return ResponseEntity.ok(dishService.getAllByRestaurantOnDate(restaurantId, date))
     }
 
     @PatchMapping("/dishes/{dishId}")

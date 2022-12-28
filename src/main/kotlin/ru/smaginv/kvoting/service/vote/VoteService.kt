@@ -17,9 +17,9 @@ interface VoteService {
 
     fun getAllOnDate(date: LocalDate): List<VoteInfoDto>
 
-    fun update(userId: Long, restaurantId: Long, voteId: Long)
+    fun update(userId: Long, restaurantId: Long)
 
     fun create(userId: Long, restaurantId: Long): VoteInfoDto
 
-    fun delete(userId: Long, voteId: Long)
+    fun delete(userId: Long)
 }

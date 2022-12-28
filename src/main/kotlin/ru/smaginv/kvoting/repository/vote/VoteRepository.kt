@@ -17,5 +17,5 @@ interface VoteRepository {
 
     fun save(vote: Vote): Vote
 
-    fun delete(userId: Long, voteId: Long)
+    fun delete(userId: Long)
 }

@@ -21,9 +21,4 @@ class VotingUtil(
         if (newRestaurant == oldRestaurant)
             throw IllegalArgumentException("You have already voted for a restaurant with an id: $oldRestaurant")
     }
-
-    fun <ID> assureIdConsistent(entityId: ID, paramId: ID) {
-        if (entityId != paramId)
-            throw IllegalArgumentException("Vote id must be: $entityId")
-    }
 }

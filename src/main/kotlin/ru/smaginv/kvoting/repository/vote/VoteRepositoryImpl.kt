@@ -33,8 +33,8 @@ class VoteRepositoryImpl(
         return voteRepository.save(vote)
     }
 
-    override fun delete(userId: Long, voteId: Long) {
-        checkNotFound(voteRepository.delete(userId, voteId), voteId)
+    override fun delete(userId: Long) {
+        checkNotFound(voteRepository.delete(userId), LocalDate.now())
     }
 }
 

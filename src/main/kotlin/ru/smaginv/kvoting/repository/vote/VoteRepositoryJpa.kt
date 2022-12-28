@@ -22,6 +22,6 @@ interface VoteRepositoryJpa : JpaRepository<Vote, Long> {
     fun getAllOnDate(@Param("date") date: LocalDate): List<Vote>
 
     @Modifying
-    @Query("DELETE FROM Vote v WHERE v.id = :voteId AND v.user.id = :userId")
-    fun delete(@Param("userId") userId: Long, @Param("voteId") voteId: Long): Int
+    @Query("DELETE FROM Vote v WHERE v.user.id = :userId AND v.date = current_date")
+    fun delete(@Param("userId") userId: Long): Int
 }

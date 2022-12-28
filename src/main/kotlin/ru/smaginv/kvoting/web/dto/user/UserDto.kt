@@ -19,10 +19,11 @@ class UserDto(
     @field:Size(min = 4, max = 64)
     var username: String?,
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @field:NotBlank
     @field:Size(min = 4, max = 32)
     var password: String?,
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    var roles: MutableSet<String>
+    var roles: MutableSet<String>?
 ) {
     override fun toString(): String {
         return "UserDto(id=$id, email='$email', username='$username', password='$password')"

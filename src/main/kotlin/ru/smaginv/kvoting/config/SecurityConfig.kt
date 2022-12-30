@@ -36,7 +36,7 @@ class SecurityConfig(
             .requestMatchers("/profile").hasAnyRole(Role.ADMIN.name, Role.USER.name)
             .requestMatchers("/user/**").hasRole(Role.USER.name)
             .requestMatchers("/votes/**").hasRole(Role.ADMIN.name)
-            .requestMatchers("/admin/**").hasRole(Role.ADMIN.name)
+            .requestMatchers("/**").hasRole(Role.ADMIN.name)
             .and().httpBasic()
             .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and().csrf().disable()

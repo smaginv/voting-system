@@ -1,5 +1,7 @@
 package ru.smaginv.kvoting.web.controller
 
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
@@ -17,6 +19,7 @@ import ru.smaginv.kvoting.web.dto.user.UserDto
     value = ["/profile"],
     produces = [MediaType.APPLICATION_JSON_VALUE]
 )
+@Tag(name = "Profile controller")
 class UserController(
     val userService: UserService,
     val passwordEncoder: PasswordEncoder
@@ -25,12 +28,14 @@ class UserController(
     private val logger = LoggerFactory.getLogger(javaClass)
 
     @GetMapping
+    @Operation(summary = "Get user")
     fun get(@AuthenticationPrincipal authUser: AuthUser): ResponseEntity<UserDto> {
         logger.info("get user with username: {}", authUser.username)
         return ResponseEntity.ok(userService.getByUsername(authUser.username))
     }
 
     @PatchMapping
+    @Operation(summary = "Update user")
     fun <T> update(
         @AuthenticationPrincipal authUser: AuthUser,
         @RequestBody @Valid userDto: UserDto
@@ -42,6 +47,7 @@ class UserController(
     }
 
     @PostMapping("/register")
+    @Operation(summary = "Register user")
     fun register(@RequestBody @Valid userDto: UserDto): ResponseEntity<UserDto> {
         logger.info("register new user with username: {}", userDto.username)
         userDto.apply { password = passwordEncoder.encode(password) }
@@ -55,6 +61,7 @@ class UserController(
     }
 
     @DeleteMapping
+    @Operation(summary = "Delete user")
     fun <T> delete(@AuthenticationPrincipal authUser: AuthUser): ResponseEntity<T> {
         logger.info("delete user with username: {}", authUser.username)
         userService.delete(authUser.id)

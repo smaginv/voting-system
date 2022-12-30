@@ -1,5 +1,7 @@
 package ru.smaginv.kvoting.web.controller
 
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -15,6 +17,7 @@ import java.time.LocalDate
 @RequestMapping(
     produces = [MediaType.APPLICATION_JSON_VALUE]
 )
+@Tag(name = "Vote Controller")
 class VoteController(
     val voteService: VoteService
 ) {
@@ -22,12 +25,14 @@ class VoteController(
     private val logger = LoggerFactory.getLogger(javaClass)
 
     @GetMapping("/user/vote/today")
+    @Operation(summary = "Get today's user vote")
     fun getByUserToday(@AuthenticationPrincipal authUser: AuthUser): ResponseEntity<VoteInfoDto> {
         logger.info("get a user vote with an id: {} today", authUser.id)
         return ResponseEntity.ok(voteService.getByUserToday(authUser.id))
     }
 
     @GetMapping("/user/vote/on-date")
+    @Operation(summary = "Get the user's vote on the date")
     fun getByUserOnDate(
         @AuthenticationPrincipal authUser: AuthUser,
         @RequestParam date: LocalDate
@@ -37,12 +42,14 @@ class VoteController(
     }
 
     @GetMapping("/user/votes")
+    @Operation(summary = "User voting history")
     fun getAllByUser(@AuthenticationPrincipal authUser: AuthUser): ResponseEntity<List<VoteInfoDto>> {
         logger.info("get all user votes with an id: {}", authUser.id)
         return ResponseEntity.ok(voteService.getAllByUser(authUser.id))
     }
 
     @PatchMapping("/user/vote")
+    @Operation(summary = "Re-vote")
     fun <T> update(
         @AuthenticationPrincipal authUser: AuthUser,
         @RequestParam restaurantId: Long
@@ -53,6 +60,7 @@ class VoteController(
     }
 
     @PostMapping("/user/vote")
+    @Operation(summary = "Vote")
     fun create(
         @AuthenticationPrincipal authUser: AuthUser,
         @RequestParam restaurantId: Long
@@ -68,6 +76,7 @@ class VoteController(
     }
 
     @DeleteMapping("/user/vote")
+    @Operation(summary = "Вelete today's user vote")
     fun <T> delete(@AuthenticationPrincipal authUser: AuthUser): ResponseEntity<T> {
         logger.info("delete today user vote")
         voteService.delete(authUser.id)
@@ -75,12 +84,14 @@ class VoteController(
     }
 
     @GetMapping("/votes/today")
+    @Operation(summary = "Get all today votes")
     fun getAllToday(): ResponseEntity<List<VoteInfoDto>> {
         logger.info("get all today votes")
         return ResponseEntity.ok(voteService.getAllToday())
     }
 
     @GetMapping("/votes/on-date")
+    @Operation(summary = "Get all votes on date")
     fun getAllOnDate(@RequestParam date: LocalDate): ResponseEntity<List<VoteInfoDto>> {
         logger.info("get all votes on date: {}", date)
         return ResponseEntity.ok(voteService.getAllOnDate(date))

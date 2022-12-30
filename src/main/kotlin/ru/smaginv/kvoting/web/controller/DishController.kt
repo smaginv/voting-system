@@ -1,5 +1,7 @@
 package ru.smaginv.kvoting.web.controller
 
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
@@ -14,6 +16,7 @@ import ru.smaginv.kvoting.web.dto.dish.DishDto
     value = ["/restaurants/{restaurantId}"],
     produces = [MediaType.APPLICATION_JSON_VALUE]
 )
+@Tag(name = "Dish Controller")
 class DishController(
     val dishService: DishService
 ) {
@@ -21,11 +24,13 @@ class DishController(
     private val logger = LoggerFactory.getLogger(javaClass)
 
     @GetMapping("/dishes/{dishId}")
+    @Operation(summary = "Get dish by id")
     fun get(@PathVariable restaurantId: Long, @PathVariable dishId: Long): ResponseEntity<DishDto> {
         logger.info("get dish with id: {}", dishId)
         return ResponseEntity.ok(dishService.get(restaurantId, dishId))
     }
 
+    @Operation(summary = "Update dish")
     @PatchMapping("/dishes/{dishId}")
     fun <T> update(
         @PathVariable restaurantId: Long,
@@ -38,6 +43,7 @@ class DishController(
     }
 
     @PostMapping("/dishes")
+    @Operation(summary = "Create dish")
     fun create(@PathVariable restaurantId: Long, @RequestBody @Valid dishDto: DishDto): ResponseEntity<DishDto> {
         logger.info("create dish: {}, for restaurant with id: {}", dishDto, restaurantId)
         val created = dishService.create(restaurantId, dishDto)
@@ -50,6 +56,7 @@ class DishController(
     }
 
     @DeleteMapping("/dishes/{dishId}")
+    @Operation(summary = "Delete dish")
     fun <T> delete(@PathVariable restaurantId: Long, @PathVariable dishId: Long): ResponseEntity<T> {
         logger.info("delete dish with id: {}, for restaurant with id: {}", dishId, restaurantId)
         dishService.delete(restaurantId, dishId)

@@ -1,10 +1,17 @@
 package ru.smaginv.kvoting.util.exception
 
-class UnauthorizedException : RuntimeException {
+import org.springframework.http.HttpStatus
+import java.time.LocalDateTime
 
-    constructor() : super()
+class UnauthorizedException(
+    private val errorMessage: String,
+    private val httpStatus: HttpStatus = HttpStatus.BAD_REQUEST,
+    private val timestamp: LocalDateTime = LocalDateTime.now()
+) : RuntimeException(), AppException {
 
-    constructor(message: String) : super(message)
+    override fun getHttpStatus() = httpStatus
 
-    constructor(message: String, cause: Throwable) : super(message, cause)
+    override fun getTimestamp() = timestamp
+
+    override fun getErrorMessage() = errorMessage
 }

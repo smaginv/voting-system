@@ -1,9 +1,42 @@
-REST API Voting System
+Spring Boot, Spring Data, Spring Security, PostgreSQL, Ehcache, MapStruct, OpenAPI
 ===============================
+
+## REST API Voting System
+
+## Application launch:
+
+**1. Clone the repository**
+
+```bash
+git clone https://github.com/smaginv/voting-system.git
+```
+
+**2. Create PostgreSQL database**
+```bash
+create database voting
+```
+
+**3. Change PostgreSQL username and password in application.yml**
+
+
+**4. Run the app using maven**
+
+```bash
+mvn spring-boot:run
+```
+
+**The app will start running at:**  
+http://localhost:8080/api
+
+**Swagger/OpenAPI Specification:**  
+http://localhost:8080/api/swagger-ui/index.html
+
+
+---
+
 
 Task:
 
----
 
 Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot) **without frontend**.
 
@@ -21,11 +54,6 @@ Build a voting system for deciding where to have lunch.
     - If it is after 11:00 then it is too late, vote can't be changed
 
 Each restaurant provides a new menu each day.
-
----
-
-**Swagger/OpenAPI Specification:**  
-http://localhost:8080/api/swagger-ui/index.html
 
 ---
 

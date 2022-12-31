@@ -42,7 +42,7 @@ class VoteController(
     }
 
     @GetMapping("/user/votes")
-    @Operation(summary = "User voting history")
+    @Operation(summary = "Get the user's voting history")
     fun getAllByUser(@AuthenticationPrincipal authUser: AuthUser): ResponseEntity<List<VoteInfoDto>> {
         logger.info("get all user votes with an id: {}", authUser.id)
         return ResponseEntity.ok(voteService.getAllByUser(authUser.id))
@@ -76,7 +76,7 @@ class VoteController(
     }
 
     @DeleteMapping("/user/vote")
-    @Operation(summary = "Вelete today's user vote")
+    @Operation(summary = "Delete today's user vote")
     fun <T> delete(@AuthenticationPrincipal authUser: AuthUser): ResponseEntity<T> {
         logger.info("delete today user vote")
         voteService.delete(authUser.id)

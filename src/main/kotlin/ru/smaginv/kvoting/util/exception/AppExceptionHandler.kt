@@ -15,7 +15,7 @@ import ru.smaginv.kvoting.util.exception.ErrorInfo.Companion.createErrorInfo
 @RestControllerAdvice
 class AppExceptionHandler : ResponseEntityExceptionHandler() {
 
-    @ExceptionHandler(value = [EndOfVoteException::class, UnauthorizedException::class])
+    @ExceptionHandler(value = [EndOfVoteException::class, UnauthorizedException::class, NotFoundException::class])
     fun handleAppException(ex: AppException, request: WebRequest): ResponseEntity<ErrorInfo> {
         val errorInfo = createErrorInfo(ex, request)
         return ResponseEntity.status(ex.getHttpStatus()).body(errorInfo)

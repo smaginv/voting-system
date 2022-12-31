@@ -1,9 +1,8 @@
-Spring Boot, Spring Data, Spring Security, PostgreSQL, Ehcache, MapStruct, OpenAPI
-===============================
+### Spring Boot, Spring Data, Spring Security, PostgreSQL, Ehcache, MapStruct, OpenAPI
 
-## REST API Voting System
+### REST API Voting System
 
-## Application launch:
+### Application launch:
 
 **1. Clone the repository**
 
@@ -35,7 +34,7 @@ http://localhost:8080/api/swagger-ui/index.html
 ---
 
 
-Task:
+### Task:
 
 
 Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot) **without frontend**.
@@ -57,9 +56,9 @@ Each restaurant provides a new menu each day.
 
 ---
 
-**REST API**
+### REST API
 
-## Administrator
+### Administrator
 
 Administrator controller:
 
@@ -189,7 +188,7 @@ GET (get all votes on date) Curl:
 
 ---
 
-## User
+### User
 
 Profile controller:
 
@@ -257,7 +256,7 @@ DELETE (delete today's user vote) Curl:
 
 ---
 
-## Anonymous
+### Anonymous
 
 Profile controller:
 
